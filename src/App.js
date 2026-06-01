@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+  
   const completedTasks = tasks.filter(task => task.completed).length;
   const pendingTasks = tasks.filter(task => !task.completed).length;
+
+  useEffect(() => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}, [tasks]);
 
   // Add New Task
   const addTask = (taskText) => {
