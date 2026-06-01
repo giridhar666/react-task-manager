@@ -6,6 +6,8 @@ import TaskList from "./components/TaskList";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const completedTasks = tasks.filter(task => task.completed).length;
+  const pendingTasks = tasks.filter(task => !task.completed).length;
 
   // Add New Task
   const addTask = (taskText) => {
@@ -40,7 +42,22 @@ function App() {
     <div className="app">
       <div className="task-container">
         <h1>Task Manager</h1>
+        <div className="stats">
+          <div className="card">
+            <h3>Total</h3>
+            <p>{tasks.length}</p>
+          </div>
 
+          <div className="card">
+            <h3>Completed</h3>
+            <p>{completedTasks}</p>
+          </div>
+
+          <div className="card">
+            <h3>Pending</h3>
+            <p>{pendingTasks}</p>
+          </div>
+        </div>
         <TaskForm addTask={addTask} />
 
         <TaskList
