@@ -64,3 +64,21 @@ h1 {
   padding: 8px 12px;
   cursor: pointer;
 }
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #4f46e5;
+  color: white;
+}
+
+.filters button:hover {
+  opacity: 0.9;
+}

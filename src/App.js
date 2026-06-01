@@ -13,6 +13,12 @@ function App() {
   
   const completedTasks = tasks.filter(task => task.completed).length;
   const pendingTasks = tasks.filter(task => !task.completed).length;
+  const [filter, setFilter] = useState("all");
+  const filteredTasks = tasks.filter((task) => {
+  if (filter === "completed") return task.completed;
+  if (filter === "pending") return !task.completed;
+  return true;
+});
 
   useEffect(() => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -68,12 +74,20 @@ function App() {
           </div>
         </div>
         <TaskForm addTask={addTask} />
+        <div className="filters">
+          <button onClick={() => setFilter("all")}>
+            All
+          </button>
 
-        <TaskList
-          tasks={tasks}
-          deleteTask={deleteTask}
-          toggleComplete={toggleComplete}
-        />
+          <button onClick={() => setFilter("completed")}>
+            Completed
+          </button>
+
+          <button onClick={() => setFilter("pending")}>
+            Pending
+          </button>
+        </div>
+        <TaskList tasks={filteredTasks} deleteTask={deleteTask} toggleComplete={toggleComplete} />
       </div>
     </div>
   );
