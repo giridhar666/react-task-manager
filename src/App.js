@@ -39,7 +39,7 @@ function App() {
     else if (filter === "high") {
       matchesFilter = task.priority === "High";
     }
-    const matchesSearch = task.text.toLowerCase().includes(search.toLowerCase());
+    const matchesSearch = (task.text || "").toLowerCase().includes(search.toLowerCase());
     console.log("Task Deadline:", task.deadline);
     console.log("Today:", today);
     return matchesFilter && matchesSearch;
