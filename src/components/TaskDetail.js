@@ -8,41 +8,48 @@ function TaskDetail({tasks, deleteTask, toggleComplete, updateTask}){
     const { id } = useParams();
     const task = tasks.find((item) => item.id === Number(id));
     const navigate = useNavigate();
-    const [isEditing, setIsEditing] = useState(false);
-    const [title, setTitle] = useState(task.text);
-    const [description, setDescription] = useState(task.description);
-    const [priority, setPriority] = useState(task.priority);
-    const [deadline, setDeadline] = useState(task.deadline);
 
-        if (!task) {
+    const [isEditing, setIsEditing] = useState(false);
+const [title, setTitle] = useState(task?.text || "");
+const [description, setDescription] = useState(task?.description || "");
+const [priority, setPriority] = useState(task?.priority || "Medium");
+const [deadline, setDeadline] = useState(task?.deadline || "");
+    if (!task) {
             return (
             <div className="task-details">
                 <h2>Task Not Found</h2>
                 <Link to="/">← Back</Link>
             </div>
             );
-        }    
-    const deletetask = () => {
-        const newTasks = tasks.filter((item) => item.id !== Number(id));
-        localStorage.setItem("tasks",JSON.stringify(newTasks));
-        navigate("/");
-        window.location.reload();
-    }
+        } 
+
+    const handleEdit = () => {
+        if (isEditing) {
+            updateTask({
+                ...task,
+                text: title,
+                description,
+                priority,
+                deadline
+            });
+        }
+
+        setIsEditing(!isEditing);
+    };
+        
+      
+    
     return (
         <div className="task-details-page">
             <div className="task-header">
                 <button className="back-btn" onClick={() => navigate("/")}> ← Back</button>
                 <div className="header-actions">
-                    <button className="edit-btn" onClick={() => {
-                            if(isEditing){updateTask({...task, text:title, description, priority, deadline});
-                                setIsEditing(false);
-                            }else{
-                                setIsEditing(true);
-                            }
-                            }}
-                        >
-                        {isEditing ? "Save" : "Edit"}
-                    </button>
+                    <button
+    className="edit-btn"
+    onClick={handleEdit}
+>
+    {isEditing ? "Save" : "Edit"}
+</button>
                     <button className="delete-btn" onClick={() => {deleteTask(task.id); navigate("/");}}>
                         <MdDeleteOutline />
                     </button>
@@ -54,7 +61,7 @@ function TaskDetail({tasks, deleteTask, toggleComplete, updateTask}){
                     📋
                 </div>
                 <div className="tast-ttl-sec">
-                    { isEditing ? <input  class="task-name" value={title} onChange={(e)=>setTitle(e.target.value)} /> : <h1>{task.text}</h1> }
+                    { isEditing ? <input  className="task-name" value={title} onChange={(e)=>setTitle(e.target.value)} /> : <h1>{task.text}</h1> }
                     <p className="task-category">Task</p>
                 </div>
             </div>
