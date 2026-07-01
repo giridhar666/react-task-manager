@@ -15,7 +15,7 @@ function TaskItem({ task, deleteTask, toggleComplete }) {
         <div className="task-info">
           <h3>{task.text}</h3>
           <div className="task-meta">
-            <span className={`priority ${task.priority.toLowerCase()}`}>
+            <span className={`priority ${(task.priority || "").toLowerCase()}`}>
               {task.priority}
             </span>
             <span className="deadline">

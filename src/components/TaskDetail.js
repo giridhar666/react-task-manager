@@ -72,7 +72,7 @@ const [deadline, setDeadline] = useState(task?.deadline || "");
             <div className="task-info-grid">
                 <div className="info-card">
                     <h5>Priority</h5>
-                    <span className={`priority ${task.priority.toLowerCase()}`}>
+                    <span className={`priority ${(task.priority || "").toLowerCase()}`}>
                         { isEditing ? <select value={priority} onChange={(e)=>setPriority(e.target.value)}> 
                             <option>High</option>
                             <option>Medium</option>
