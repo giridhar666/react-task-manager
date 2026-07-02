@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import Dashboard from "./components/Dashboard";
 import TaskDetail from "./components/TaskDetail";
-
 function App() {
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks");
@@ -82,34 +80,11 @@ function App() {
       <Route
         path="/"
         element={
-          <Dashboard
-            tasks={tasks}
-            completedTasks={completedTasks}
-            pendingTasks={pendingTasks}
-            addTask={addTask}
-            deleteTask={deleteTask}
-            toggleComplete={toggleComplete}
-            filter={filter}
-            setFilter={setFilter}
-            filteredTasks={filteredTasks}
-            search={search}
-            setSearch={setSearch}
-          />
-        }
+          <Dashboard tasks={tasks} completedTasks={completedTasks} pendingTasks={pendingTasks} addTask={addTask} deleteTask={deleteTask}
+            toggleComplete={toggleComplete} filter={filter} setFilter={setFilter} filteredTasks={filteredTasks} search={search} setSearch={setSearch} />
+          }
       />
-      <Route
-  path="/task/:id"
-  element={
-    <TaskDetail
-      tasks={tasks}
-      deleteTask={deleteTask}
-      toggleComplete={toggleComplete}
-      updateTask={updateTask}
-    />
-  }
-/>
-    </Routes>
+      <Route path="/task/:id" element={<TaskDetail tasks={tasks} deleteTask={deleteTask} toggleComplete={toggleComplete} updateTask={updateTask} />} /></Routes>
   );
 }
-
 export default App;

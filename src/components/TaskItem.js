@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
-
 import { MdDeleteOutline } from "react-icons/md";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import "./TaskItem.css";
-
 function TaskItem({ task, deleteTask, toggleComplete }) {
   return (
     <div className="task-card">
